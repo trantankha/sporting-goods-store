@@ -1,0 +1,61 @@
+#accordion .card .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#accordion .card .card-header .form-check .form-check-label {
+    cursor: pointer;
+}
+
+.col-md-5 .navbar .nav .nav-item {
+    display: grid;
+    grid-template-columns: 65px auto 80px;
+    gap: 10px;
+    padding: 6px 0px;
+}
+
+.col-md-5 .navbar .nav .nav-item .img-fluid {
+    position: relative;
+}
+
+.col-md-5 .navbar .nav .nav-item .img-fluid img {
+    width: 100%;
+    height: auto;
+    transition: all 0.3 ease;
+    border-radius: 10%;
+}
+
+.col-md-5 .navbar .nav .nav-item .img-fluid .badge {
+    background-color: #110a0a8f;
+    position: absolute;
+    top: -7px;
+    right: -9px;
+    border-radius: 50%;
+    color: black;
+}
+
+.col-md-5 .navbar .nav .nav-item .content .name {
+    margin: 0;
+    max-height: 48px;
+    overflow: hidden;
+    color: #110a0a;
+    font-size: 16px;
+}
+
+.col-md-5 .navbar .nav .nav-item .content .size-color {
+    font-size: 13px;
+    color: #110a0a8f;
+    margin: 0;
+}
+
+.col-md-5 .navbar .nav .nav-item .price {
+    font-weight: 500;
+    color: #110a0a;
+}
+
+.col-md-5 .navbar .block-total .nav-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

@@ -1,0 +1,140 @@
+.carousel .carousel-inner .carousel-item a img {
+    transition: all 0.7s ease-in-out;
+    display: block;
+}
+
+.carousel .carousel-inner .carousel-item a img:hover {
+    transform: scale(1.1);
+    opacity: 0.7;
+}
+
+.category-block .category-main {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+}
+
+.category-block .category-main .card .card-body {
+    background-color: #f3f3f3;
+}
+
+.category-block .category-main .card .card-body .nav-link {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    transition: all 0.3s ease-in-out;
+    gap: 10px;
+}
+
+.category-block .category-main .card .card-body .nav-link:hover {
+    transform: scale(0.9);
+    color: #77e51f;
+}
+
+.collection-block .collection-main .slick-slider .slick-prev:before {
+    content: '\f053';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 700;
+    font-size: 40px;
+    color: darkblue;
+    transition: all 0.3s ease-in-out;
+    opacity: 0;
+}
+
+.collection-block .collection-main .slick-slider .slick-next:before {
+    content: '\f054';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 700;
+    font-size: 40px;
+    color: darkblue;
+    transition: all 0.3s ease-in-out;
+    opacity: 0;
+}
+
+.collection-block .collection-main .slick-slider:hover .slick-prev:before {
+    opacity: 1;
+    background-color: #555;
+}
+
+.collection-block .collection-main .slick-slider:hover .slick-next:before {
+    opacity: 1;
+    background-color: #555;
+}
+
+.product-block .product-main .product-item {
+    padding: 8px;
+}
+
+.product-block .product-main .product-item .card .img-fluid .block-badge {
+    position: absolute;
+    top: 3px;
+    right: 7px;
+}
+
+.product-block .product-main .product-item .card .img-fluid .block-badge .badge {
+    font-size: 11px;
+    padding: 5px 10px;
+    color: #01223b;
+    font-weight: 600;
+    background-color: #77e51f;
+}
+
+.product-block .product-main .product-item .card .card-body .trademark {
+    margin: 8px 0px 0px 0px;
+    color: #3c3737;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.product-block .product-main .product-item .card .card-body .nav-link .link-text {
+    overflow: hidden;
+    width: 100%;
+    height: 50px;
+    color: #1b1b1b;
+    font-size: 18px;
+    margin: 10px 0px 17px 0px;
+}
+
+.product-block .product-main .product-item .card .card-body .nav-link .link-text:hover {
+    cursor: pointer;
+    color: #77e51f;
+}
+
+.product-block .product-main .product-item .card .card-body .card-price {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.product-block .product-main .product-item .card .card-body .card-price .price-after {
+    font-size: 19px;
+    color: #ff0000;
+    font-weight: bold;
+}
+
+.product-block .product-main .product-item .card .card-body .card-price .price-before {
+    font-size: 18px;
+    color: #515151;
+    text-decoration: line-through;
+    font-weight: 600;
+}
+
+.product-block .product-main .product-item .card .card-body .btn-group .btn {
+    font-size: 15px;
+    padding: 7px;
+}
+
+.trademark-block .trademark-main .trademark-item {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    padding: 5px 0px;
+}
+
+.trademark-block .trademark-main .trademark-item .img-fluid img {
+    width: 100%;
+    transition: all 0.3s ease-in-out;
+}
+
+.trademark-block .trademark-main .trademark-item .img-fluid:hover img {
+    opacity: 0.8;
+}

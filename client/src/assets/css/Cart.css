@@ -1,0 +1,84 @@
+.col-md-8 .block-main .card-body .card-item {
+    padding: 15px 0px;
+    display: grid;
+    grid-template-columns: 90px 330px 170px auto 90px;
+    gap: 10px;
+}
+
+.col-md-8 .block-main .card-body .card-item .text-item .trademark {
+    margin: 0px 0px 5px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #12283e;
+}
+
+.col-md-8 .block-main .card-body .card-item .text-item .nav-link {
+    color: #515151;
+    font-weight: 500;
+    width: 100%;
+    max-height: 48px;
+    overflow: hidden;
+}
+
+.col-md-8 .block-main .card-body .card-item .text-item .size {
+    font-size: 15px;
+    color: #969595;
+    font-style: italic;
+    font-weight: 600;
+    margin: 0;
+}
+
+.col-md-8 .block-main .card-body .card-item .price-item {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.col-md-8 .block-main .card-body .card-item .price-item .price-after {
+    font-size: 17px;
+    color: #bc0000;
+}
+
+.col-md-8 .block-main .card-body .card-item .price-item .price-before {
+    text-decoration: line-through;
+    color: #969595;
+}
+
+.col-md-8 .block-main .card-body .card-item .total-item p {
+    font-size: 17px;
+    color: #bc0000;
+}
+
+.col-md-4 .card .card-body .nav .nav-item {
+    padding: 8px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+    color: black;
+}
+
+.col-md-4 .card .card-body .nav .nav-item .total {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.col-md-4 .card .card-body .nav .nav-item .text-secondary {
+    font-size: 15px;
+}
+
+.col-md-4 .card .card-body .total-amount {
+    font-size: 17px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.col-md-4 .card .card-body .total-amount .sum {
+    font-size: 18px;
+}
+
+.block-title .nav-link span:hover {
+    cursor: pointer;
+    color: #77e51f;
+}

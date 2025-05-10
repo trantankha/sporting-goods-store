@@ -1,0 +1,25 @@
+* {
+    font-family: 'segoe ui', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
+footer .row .col-md {
+    height: 327px;
+    width: 100%;
+}
+
+footer .row .col-md p {
+    margin-bottom: 10px;
+}
+
+footer .row .col-md a {
+    text-decoration: none;
+    color: #212521;
+}
+
+footer .row .col-md a:hover {
+    color: #77e51f;
+}

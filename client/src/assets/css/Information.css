@@ -1,0 +1,166 @@
+.col-md-5 .card .card-body .trademark {
+    text-decoration: none;
+    color: #3d4246;
+}
+
+.col-md-5 .card .card-body .name-product {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.col-md-5 .card .card-body .detail-product {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.col-md-5 .card .card-body .detail-product .type-product {
+    font-size: 15px;
+    color: #12283e;
+}
+
+.col-md-5 .card .card-body .detail-product .id-product {
+    font-size: 15px;
+    color: #1b1b1b;
+}
+
+.col-md-5 .card .card-body .comment-product {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+}
+
+.col-md-5 .card .card-body .comment-product .viewer-product {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    gap: 3px;
+    font-style: italic;
+}
+
+.col-md-5 .card .card-body .price-product {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.col-md-5 .card .card-body .price-product .price-after {
+    font-size: 22px;
+    font-weight: 600;
+    color: #bc0000;
+}
+
+.col-md-5 .card .card-body .price-product .price-before {
+    font-size: 18px;
+    text-decoration: line-through;
+    color: #3d4246;
+}
+
+.col-md-5 .card .card-body .price-product .price-percent {
+    font-size: 18px;
+    padding: 0px 5px;
+    background-color: #a82200;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.col-md-5 .card .card-body .color-product {
+    margin: 25px 0px 0px;
+    font-size: 16px;
+    color: black;
+}
+
+.col-md-5 .card .card-body .color-product .colors-item {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    width: 100%;
+    max-height: 214px;
+    overflow: hidden;
+}
+
+.col-md-5 .card .card-body .color-product .colors-item .img-fluid img {
+    width: 100%;
+    transition: 0.3s ease;
+}
+
+.col-md-5 .card .card-body .color-product .colors-item .img-fluid img:hover {
+    transform: scale(0.9);
+    opacity: 0.9;
+}
+
+.col-md-5 .card .card-body .size-product {
+    margin: 15px 0px 0px;
+    font-size: 16px;
+    color: black;
+}
+
+.col-md-5 .card .card-body .size-product .size-head {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.col-md-5 .card .card-body .size-product .sizes-item {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    padding: 10px 0px;
+    max-height: 117px;
+    overflow: hidden;
+}
+
+.col-md-5 .card .card-body .size-product .sizes-item .nav-link {
+    padding: 8px;
+    text-align: center;
+    border: 2px solid black;
+}
+
+.col-md-5 .card .card-body .quantity-product {
+    margin: 15px 0px 0px;
+    font-size: 16px;
+    color: black;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.col-md-5 .card .card-body .toggle-product {
+    margin: 35px 0px 0px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.col-md-5 .card .card-body .toggle-product .btn-buy {
+    background-color: #12283e;
+    color: #78e61e;
+    border-radius: 0;
+    font-size: 15px;
+    width: 160px;
+    padding: 8px 20px;
+}
+
+.col-md-5 .card .card-body .toggle-product .btn-add {
+    border: 2px solid #01223b;
+    border-radius: 0;
+    padding: 8px 20px;
+    font-size: 15px;
+    color: black;
+}
+
+#scrumb .nav-item {
+    display: grid;
+    grid-template-columns: 20px 1fr auto;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 0px;
+}
+
+#scrumb .nav-item a {
+    font-size: 14px;
+    color: #3d4246;
+    margin-left: 5px;
+}
