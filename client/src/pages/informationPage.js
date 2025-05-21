@@ -6,10 +6,52 @@ import { useParams } from 'react-router-dom';
 const Information = () => {
     const [product, setProduct] = useState();
     const [indexImg, setIndexImg] = useState(0);
+    const [quantity, setQuantity] = useState(1);
+    const [size, setSize] = useState();
+    let Cart = JSON.parse(localStorage.getItem('cart')) || [];
     const { id } = useParams();
     const handleSelect = (index) => {
         setIndexImg(index);
     }
+    const handleIncrease = () => {
+        setQuantity((item) => item + 1);
+    }
+    const handleDecrease = () => {
+        if (quantity > 1) {
+            setQuantity((item) => item - 1);
+        }
+    }
+    const handleSelectSize = (item) => {
+        setSize(item);
+    }
+    const handleAddToCart = (item) => {
+        if (!size) {
+            alert("Vui lòng chọn kích thước sản phẩm !");
+            return;
+        }
+        const newproduct = {
+            Id: product[0].Id,
+            Name: product[0].Name,
+            Color: product[0].Color,
+            Price: product[0].Price,
+            Quantity: quantity,
+            Size: size,
+            Trademark: product[0].Trademark,
+            Decrease: product[0].Decrease,
+            Percent: product[0].Percent,
+            Image: product[0].Image[0]
+        }
+        const index = Cart.findIndex((item) => item.Id === newproduct.Id && item.Size === newproduct.Size);
+        if (index !== -1) {
+            Cart[index].Quantity += newproduct.Quantity;
+        } else {
+            Cart.push(newproduct);
+        }
+        localStorage.setItem('cart', JSON.stringify(Cart));
+        alert('Thêm vào giỏ hàng thành công');
+        window.location.reload();
+    };
+
     useEffect(() => {
         getProductById(id)
             .then((res) => {
@@ -116,7 +158,7 @@ const Information = () => {
                                             <strong> CHỈ ÁP DỤNG</strong> hình thức Thanh toán ONLINE, <strong>KHÔNG ÁP DỤNG</strong> Thanh toán khi nhận hàng (COD).</li>
                                     </ul>
                                     <div className="img-fluid">
-                                        <img src="http://localhost:5000/uploads/logo_introduction.webp" style={{ width: '100%' }} />
+                                        <img src="/images/logo/logo_introduction.webp" style={{ width: '100%' }} />
                                     </div>
                                 </div>
                                 <div id="preserve" className="container tab-pane fade p-3">
@@ -177,7 +219,7 @@ const Information = () => {
                                     </div>
                                 </div>
                                 <div className="price-product">
-                                    {product[0].Decrease === 1 ? (<>
+                                    {product[0].Percent !== 0 ? (<>
                                         <div className="price-after">{(product[0].Price * (100 - product[0].Percent) / 100).toLocaleString()}đ</div>
                                         <div className="price-before">{product[0].Price.toLocaleString()}đ</div>
                                         <div className="price-percent">-{product[0].Percent}%</div>
@@ -198,13 +240,16 @@ const Information = () => {
                                     <div className="size-head">
                                         <label htmlFor="size">Kích thước:</label>
                                         <a href="#" className="img-fluid" style={{ color: '#969595' }}>
-                                            <img src="http://localhost:5000/uploads/ruler.png" style={{ width: '13%', padding: '5px' }} />
+                                            <img src="/images/icon/icon1.png" style={{ width: '13%', padding: '5px' }} />
                                             Hướng dẫn chọn kích thước
                                         </a>
                                     </div>
                                     <div className="sizes-item">
                                         {product[0].Size.map((item, index) => (
-                                            <a href="#" className="nav-link" key={index}><span>{item.toUpperCase()}</span></a>
+                                            <button type="button" className="nav-link" key={index}
+                                                onClick={() => handleSelectSize(item)}
+                                                style={{ color: size === item ? '#ffffff' : '', backgroundColor: size === item ? '#77e51f' : '' }}
+                                            ><span>{item.toUpperCase()}</span></button>
                                         ))}
 
                                     </div>
@@ -213,7 +258,8 @@ const Information = () => {
                                     <label htmlFor="quantity">Số lượng:</label>
                                     <div className="btn-group">
                                         <button type="button"
-                                            className="btn btn-outline-success">
+                                            className="btn btn-outline-success"
+                                            onClick={handleIncrease}>
                                             <i className="fas fa-plus"></i>
                                         </button>
                                         <input
@@ -221,17 +267,24 @@ const Information = () => {
                                             type="text"
                                             name="quantity"
                                             id="quantity"
-                                            value={product[0].Quantity}
+                                            value={quantity}
                                             defaultValue="1"
-                                            style={{ width: '50px' }} />
-                                        <button type="button" className="btn btn-outline-danger">
+                                            style={{ width: '50px' }} readOnly />
+                                        <button type="button"
+                                            className="btn btn-outline-danger"
+                                            onClick={handleDecrease}>
                                             <i className="fas fa-minus"></i>
                                         </button>
                                     </div>
                                 </div>
                                 <div className="toggle-product">
-                                    <a href="#" type="button" className="btn btn-buy"><span>MUA NGAY</span></a>
-                                    <a href="#" type="button" className="btn btn-add"><span>THÊM VÀO GIỎ HÀNG</span></a>
+                                    <button type="button" className="btn btn-buy"
+                                        onClick={() => handleAddToCart(product[0])}
+                                    >
+                                        <span>MUA NGAY</span></button>
+                                    <button type="button" className="btn btn-add"
+                                        onClick={() => handleAddToCart(product[0])}
+                                    ><span>THÊM VÀO GIỎ HÀNG</span></button>
                                 </div>
                             </div>
                         </div>

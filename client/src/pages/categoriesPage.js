@@ -6,6 +6,7 @@ import { getDiscounts } from "../services/discountService";
 const CategoriesPage = () => {
     const [type, setType] = useState([]);
     const [discount, setDiscount] = useState([]);
+    const [search, setSearch] = useState("");
     useEffect(() => {
         getTypeProducts()
             .then((res) => {
@@ -23,7 +24,30 @@ const CategoriesPage = () => {
                 setDiscount(fixedPath);
             })
             .catch((err) => { console.log('Error fetching discount:', err); });
+
     }, [])
+    const filteredDiscounts = discount.filter(item => {
+        const nameMatch = item.Name.toLowerCase().includes(search.toLowerCase());
+        const trademarkMatch = item.Trademark.toLowerCase().includes(search.toLowerCase());
+        return nameMatch || trademarkMatch
+    });
+    const sortDiscounts = (order) => {
+        const sortedDiscounts = [...filteredDiscounts].sort((a, b) => {
+            if (order === "asc") {
+                return a.Price - b.Price;
+            } else if (order === "desc") {
+                return b.Price - a.Price;
+            } else if (order === "az") {
+                return a.Name.localeCompare(b.Name);
+            } else if (order === "za") {
+                return b.Name.localeCompare(a.Name);
+            } else if (order === "new") {
+                return new Date(b.CreatedAt) - new Date(a.CreatedAt);
+            }
+            return 0;
+        });
+        setDiscount(sortedDiscounts);
+    };
     return (
         <>
             <div className="bread-scrumb" style={{ backgroundColor: '#f7f7f7', padding: '8px 0px' }}>
@@ -335,38 +359,57 @@ const CategoriesPage = () => {
                             <div className="input-group input-group-md pb-3">
                                 <input type="text" className="form-control"
                                     placeholder="Tìm kiếm sản phẩm bạn muốn trong này..."
-                                    style={{ padding: '8px', fontSize: '16px' }} />
+                                    style={{ padding: '8px', fontSize: '16px' }}
+                                    value={search}
+                                    onChange={(e) => setSearch(e.target.value)} />
                                 <span className="input-group-text"><i className="fas fa-search"></i></span>
                             </div>
                             <ul className="nav d-flex align-items-center justify-content-between border-bottom py-2">
-                                <li className="nav-item" style={{ fontSize: '20px', fontWeight: '500px' }}>5831 sản phẩm</li>
+                                <li className="nav-item" style={{ fontSize: '16px', fontWeight: '500px' }}>{discount.length} sản phẩm</li>
                                 <li className="nav-item">
                                     <div className="dropdown">
                                         <a href="#" className="btn btn-dark dropdown-toggle" type="button"
-                                            style={{ fontSize: '16px' }}
+                                            style={{ fontSize: '14px' }}
                                             data-bs-toggle="dropdown"
                                         >
                                             Sắp Xếp
                                         </a>
                                         <ul className="dropdown-menu dropdown-menu-end">
                                             <li><a href="#" className="dropdown-item text-danger">Liên quan</a></li>
-                                            <li><a href="#" className="dropdown-item">Bán chạy nhất
-                                                <i className="fas fa-thumbs-up"></i>
-                                            </a></li>
-                                            <li><a href="#" className="dropdown-item">Mới nhất
+                                            <li><a
+                                                href="#"
+                                                className="dropdown-item"
+                                                onClick={() => sortDiscounts("new")}
+                                            >Mới nhất
                                                 <i className="far fa-star"></i>
                                             </a></li>
-                                            <li><a href="#" className="dropdown-item">Giá giảm dần
+                                            <li><a
+                                                href="#"
+                                                className="dropdown-item"
+                                                onClick={() => sortDiscounts("desc")}
+                                            >Giá giảm dần
                                                 <i className="fas fas fa-sort-amount-down"></i>
                                             </a></li>
-                                            <li><a href="#" className="dropdown-item">Giá tăng dần
+                                            <li><a
+                                                href="#"
+                                                className="dropdown-item"
+                                                onClick={() => sortDiscounts("asc")}
+                                            >Giá tăng dần
                                                 <i className="fas fa-sort-amount-up"></i>
                                             </a></li>
-                                            <li><a href="#" className="dropdown-item">A đến Z
-                                                <i className="fas fa-sort-alpha-up"></i>
-                                            </a></li>
-                                            <li><a href="#" className="dropdown-item">Z đến A
+                                            <li><a
+                                                href="#"
+                                                className="dropdown-item"
+                                                onClick={() => sortDiscounts("az")}
+                                            >A đến Z
                                                 <i className="fas fa-sort-alpha-down"></i>
+                                            </a></li>
+                                            <li><a
+                                                href="#"
+                                                className="dropdown-item"
+                                                onClick={() => sortDiscounts("za")}
+                                            >Z đến A
+                                                <i className="fas fa-sort-alpha-up"></i>
                                             </a></li>
                                         </ul>
                                     </div>
@@ -375,12 +418,12 @@ const CategoriesPage = () => {
                         </div>
                         <div className="main-block mt-4">
                             <div className="block-item row align-items-center">
-                                {discount.map((item) => {
-                                    if (item.Decrease == 1) {
+                                {filteredDiscounts.map((item) => {
+                                    if (item.Percent !== 0) {
                                         return <div className="col-md-3 pb-3" key={item.Id}>
                                             <div className="card border-0">
                                                 <a href={`http://localhost:3000/information/${item.Id}`} className="img-fluid">
-                                                    <img className="card-img-top frame-picture" src="http://localhost:5000/uploads/frame1.webp" />
+                                                    <img className="card-img-top frame-picture" src="/images/frame/frame1.webp" />
                                                     <div className="block-picture">
                                                         <img className="card-img-top picture-1" src={`http://localhost:5000/${item.Image[0]}`} />
                                                         <img className="card-img-top picture-2" src={`http://localhost:5000/${item.Image[1]}`} />
@@ -403,49 +446,53 @@ const CategoriesPage = () => {
                                                         <i className="fas fa-star text-warning"></i>
                                                         <i className="fas fa-star text-warning"></i>
                                                         <i className="fas fa-star text-warning"></i>
-                                                        <i className="far fa-star text-warning"></i>
+                                                        <i className="far fa-star-half-alt text-warning"></i>
                                                         <i>{item.Viewer} Reviewer</i>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     }
-                                    return <div className="col-md-3 pb-3" key={item.Id}>
-                                        <div className="card border-0">
-                                            <a href={`http://localhost:3000/information/${item.Id}`} className="img-fluid">
-                                                <div className="block-picture">
-                                                    <img className="card-img-top picture-1" src={`http://localhost:5000/${item.Image[0]}`} />
-                                                    <img className="card-img-top picture-2" src={`http://localhost:5000/${item.Image[1]}`} />
-                                                </div>
-                                                <div className="block-badge">
-                                                    <span className="badge">MỚI</span>
-                                                </div>
-                                            </a>
-                                            <div className="card-body px-0">
-                                                <div className="link-text">
-                                                    <a href={`http://localhost:3000/information/${item.Id}`} className="nav-link">{`${item.Name} - ${item.Color}`}</a>
-                                                </div>
-                                                <div className="trademark">{item.Trademark.toUpperCase()}</div>
-                                                <div className="price">
-                                                    <span className="price-after text-light">{(item.Price).toLocaleString()}đ</span>
-                                                </div>
-                                                <div className="evaluate">
-                                                    <i className="fas fa-star text-warning"></i>
-                                                    <i className="fas fa-star text-warning"></i>
-                                                    <i className="fas fa-star text-warning"></i>
-                                                    <i className="fas fa-star text-warning"></i>
-                                                    <i className="far fa-star text-warning"></i>
-                                                    <i>{item.Viewer} Reviewer</i>
+                                    return (
+                                        <div className="col-md-3 pb-3" key={item.Id}>
+                                            <div className="card border-0">
+                                                <a href={`http://localhost:3000/information/${item.Id}`} className="img-fluid">
+                                                    <img className="card-img-top frame-picture" src="/images/frame/frame2.webp" />
+                                                    <div className="block-picture">
+                                                        <img className="card-img-top picture-1" src={`http://localhost:5000/${item.Image[0]}`} />
+                                                        <img className="card-img-top picture-2" src={`http://localhost:5000/${item.Image[1]}`} />
+                                                    </div>
+                                                    <div className="block-badge">
+                                                        <span className="badge">MỚI</span>
+                                                    </div>
+                                                </a>
+                                                <div className="card-body px-0">
+                                                    <div className="link-text">
+                                                        <a href={`http://localhost:3000/information/${item.Id}`} className="nav-link">{`${item.Name} - ${item.Color}`}</a>
+                                                    </div>
+                                                    <div className="trademark">{item.Trademark.toUpperCase()}</div>
+                                                    <div className="price">
+                                                        <span className="price-after text-light">{(item.Price).toLocaleString()}đ</span>
+                                                    </div>
+                                                    <div className="evaluate">
+                                                        <i className="fas fa-star text-warning"></i>
+                                                        <i className="fas fa-star text-warning"></i>
+                                                        <i className="fas fa-star text-warning"></i>
+                                                        <i className="fas fa-star text-warning"></i>
+                                                        <i className="far fa-star text-warning"></i>
+                                                        <i>{item.Viewer} Reviewer</i>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    )
                                 })}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </>
     )
 }

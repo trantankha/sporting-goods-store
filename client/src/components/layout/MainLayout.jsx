@@ -1,15 +1,15 @@
 import Header from "./Header";
 import Footer from "./Footer";
 
-export default function MainLayout({ children }) {
+export default function MainLayout({ children, hideHeaderFooter = false }) {
 
     return (
         <>
-            <Header />
+            {!hideHeaderFooter && <Header />}
             <main>
                 {children}
             </main>
-            <Footer />
+            {!hideHeaderFooter && <Footer />}
         </>
     );
 }

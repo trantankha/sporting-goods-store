@@ -102,12 +102,12 @@ const HomePage = () => {
                             <h4 className="text-center my-4" style={{ fontWeight: '500' }}>DANH MỤC SẢN PHẨM</h4>
                         </div>
                         <div className="category-main">
-                            {category.map((item) => (
+                            {category.map((item, index) => (
                                 <div className="card border-0" key={item.Id}>
                                     <div className="card-body">
                                         <a href="#" className="nav-link">
                                             <div className="img-fluid">
-                                                <img className="img-thumbnail" src={`http://localhost:5000/${item.Image}`} alt={item.Name} width="100%" />
+                                                <img className="img-thumbnail" src={`/images/category/category${index + 1}.webp`} alt={item.Name} width="100%" />
                                             </div>
                                             <div className="d-flex justify-content-center align-items-center text-center">{item.Name}</div>
                                         </a>
@@ -171,14 +171,14 @@ const HomePage = () => {
                                             </div>
                                             <div className="card-body p-0">
                                                 <p className="trademark">{item.Trademark.toUpperCase()}</p>
-                                                <a href="#" className="nav-link"><div className="link-text">{`${item.Name} - ${item.Color}`}</div></a>
+                                                <a href={`/information/${item.Id}`} className="nav-link"><div className="link-text">{`${item.Name} - ${item.Color}`}</div></a>
                                                 <div className="card-price">
                                                     <span className="price-after">{(parseInt(item.Price) * 0.6).toLocaleString()}đ</span>
                                                     <span className="price-before">{parseInt(item.Price).toLocaleString()}đ</span>
                                                 </div>
                                                 <div className="btn-group d-flex justify-content-center align-items-center mt-3">
-                                                    <a href="#" type="button" className="btn btn-success rounded-0">THÊM GIỎ HÀNG</a>
                                                     <a href="#" type="button" className="btn btn-outline-warning rounded-0">MUA NGAY</a>
+                                                    <a href="#" type="button" className="btn btn-success rounded-0">THÊM GIỎ HÀNG</a>
                                                 </div>
                                             </div>
                                         </div>

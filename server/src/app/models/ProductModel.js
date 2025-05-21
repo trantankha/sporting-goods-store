@@ -33,6 +33,12 @@ class ProductModel {
             callback(null, results);
         });
     }
+    static getProductByPagination(item, callback) {
+        db.query('select * from product limit ? offset ?', [item.limit, item.size], (err, results) => {
+            if (err) return callback(err, null);
+            callback(null, results);
+        })
+    }
     static searchProducts(searchTerm, callback) {
         db.query('call SearchProducts(?)', [`%${searchTerm}%`], (err, results) => {
             if (err) return callback(err, null);

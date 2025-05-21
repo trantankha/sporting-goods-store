@@ -4,7 +4,8 @@ const colors = {
     red: '#ff0000',
     grey: '#969595',
     silver: '#3d4246',
-    dark_grey: '#01223b',
+    dark_blue: '#01223b',
     light_fade: '#515151',
+    orange: '#FF6600'
 };
 export default colors;

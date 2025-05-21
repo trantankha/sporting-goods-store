@@ -4,6 +4,7 @@ const upload = require('../app/middlewares/HandleUploadFile');
 const ProductController = require('../app/controllers/ProductController');
 
 router.post('/create', upload.array('file', 10), ProductController.insertData)
+// router.get('/', ProductController.getDataByPagination);
 router.get('/', ProductController.getData)
 
 module.exports = router;

@@ -1,5 +1,5 @@
 const ProductModel = require('../models/ProductModel');
-const path = require('path');
+// const path = require('path');
 
 class ProductController {
     static getData(req, res) {
@@ -51,7 +51,19 @@ class ProductController {
             res.json(data);
         });
     }
-
+    static getDataByPagination(req, res) {
+        const page = parseInt(req.query.page) || 1;
+        const limit = 6;
+        const offset = (page - 1) * limit;
+        const result = {
+            limit: limit,
+            offset: offset
+        };
+        ProductModel.getProductByPagination(result, (err, data) => {
+            if (err) return res.status(500).json({ error: err.message });
+            res.json(data);
+        });
+    }
 }
 
 module.exports = ProductController;

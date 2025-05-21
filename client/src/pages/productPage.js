@@ -7,15 +7,15 @@ const ProductPage = () => {
     const [products, setProducts] = useState({
         name: "",
         describe: "",
-        image: null,
-        typeId: null,
-        categoryId: null,
+        image: "",
+        typeId: "",
+        categoryId: "",
         trademark: "",
         color: "",
-        size: null,
+        size: "",
         quantity: 0,
         price: 0,
-        parameter: null,
+        parameter: "",
         decrease: 0,
         percent: 0,
         viewer: 0,
@@ -39,17 +39,16 @@ const ProductPage = () => {
                 console.error("Error fetching categories:", error);
             });
     }, [])
+    // .map((file) => `uploads/${file.name}`)
     const eventChange = (event) => {
         const { name, value, files, checked } = event.target;
         if (name === "image") {
-            const arrFile = Array.from(files).map((file) => `uploads/${file.name}`);
+            const arrFile = Array.from(files);
             setProducts({ ...products, [name]: arrFile });
         } else if (name === 'size') {
-            const arrSize = value.split(' ').filter((item) => item.trim() !== '');
-            setProducts({ ...products, [name]: arrSize });
+            setProducts({ ...products, [name]: value });
         } else if (name === 'parameter') {
-            const arrParameter = value.split('\n').filter((item) => item.trim() !== '');
-            setProducts({ ...products, [name]: arrParameter });
+            setProducts({ ...products, [name]: value });
         } else if (name === 'decrease') {
             const isChecked = checked;
             setChecked(isChecked);
@@ -74,11 +73,11 @@ const ProductPage = () => {
         formData.append("categoryId", products.categoryId);
         formData.append("trademark", products.trademark);
         formData.append("color", products.color);
-        formData.append("size", JSON.stringify(products.size));
+        formData.append("size", JSON.stringify(products.size.split(' ').filter((item) => item.trim() !== '')));
         formData.append("quantity", products.quantity);
         formData.append("price", products.price);
-        formData.append("parameter", JSON.stringify(products.parameter));
-        formData.append("file", JSON.stringify(products.image));
+        formData.append("parameter", JSON.stringify(products.parameter.split('\n').filter((item) => item.trim() !== '')));
+        formData.append("file", JSON.stringify(products.image.map((file) => `uploads/${file.name}`)));
         formData.append("decrease", products.decrease);
         formData.append("percent", products.percent);
         formData.append("viewer", products.viewer);
@@ -101,7 +100,7 @@ const ProductPage = () => {
                                 name="typeId"
                                 value={products.typeId}
                             >
-                                <option selected value="">--Select TypeProduct--</option>
+                                <option value="">--Select TypeProduct--</option>
                                 {type.map((item) => (
                                     <option key={item.Id} value={item.Id}>
                                         {item.Name}
@@ -116,7 +115,7 @@ const ProductPage = () => {
                                 value={products.categoryId}
                                 name="categoryId"
                             >
-                                <option selected value="">--Select Category--</option>
+                                <option value="">--Select Category--</option>
                                 {category.map((item) => (
                                     <option key={item.Id} value={item.Id}>
                                         {item.Name}
@@ -233,7 +232,7 @@ const ProductPage = () => {
                             name="image"
                             multiple
                             onChange={eventChange}
-                            value={products.image}
+                        // value={products.image}
                         />
                     </div>
                     <div className="mt-3 form-check">

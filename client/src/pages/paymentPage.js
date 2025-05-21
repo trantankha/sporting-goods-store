@@ -2,6 +2,22 @@ import React, { useState, useEffect } from "react";
 import Paymentcss from '../assets/css/Payment.css'
 
 const PaymentPage = () => {
+    const [Cart, setCart] = useState(() => JSON.parse(localStorage.getItem("cart")) || []);
+    const [total, setTotal] = useState(0);
+    const [promo, setPromo] = useState(0);
+    useEffect(() => {
+        const totalPrice = Cart.reduce((total, item) => {
+            return total + (item.Price * (100 - item.Percent) / 100) * item.Quantity;
+        }, 0);
+        setTotal(totalPrice);
+        // Check if there is a promo code in localStorage
+        const promoCode = localStorage.getItem("promoCode");
+        if (promoCode) {
+            const promoDiscount = (totalPrice * promoCode) / 100;
+            setPromo(promoDiscount);
+            setTotal(totalPrice - promoDiscount);
+        }
+    }, [Cart]);
     return (
         <>
             <div className="container-fluid border-bottom" style={{ backgroundColor: '#00132d' }}>
@@ -295,28 +311,19 @@ const PaymentPage = () => {
                     <div className="col-md-5 border-start pt-5 px-4">
                         <nav className="navbar navbar-expand-sm navbar-dark sticky-top my-3 flex-column">
                             <ul className="nav flex-column">
-                                <li className="nav-item">
-                                    <div className="img-fluid">
-                                        <img src="images/product/product1-1.webp" />
-                                        <span className="badge">1</span>
-                                    </div>
-                                    <div className="content">
-                                        <p className="name">Giày Clog Unisex Crocs Bayaband - Đen</p>
-                                        <p className="size-color">ĐEN / M6W8</p>
-                                    </div>
-                                    <div className="price text-end">1.196.000đ</div>
-                                </li>
-                                <li className="nav-item">
-                                    <div className="img-fluid">
-                                        <img src="images/product/product2-1.webp" />
-                                        <span className="badge">2</span>
-                                    </div>
-                                    <div className="content">
-                                        <p className="name">Áo Thun Nữ Converse Strucker Limited - Đen</p>
-                                        <p className="size-color">NÂU / XL</p>
-                                    </div>
-                                    <div className="price text-end">896.000đ</div>
-                                </li>
+                                {Cart.map((item) => (
+                                    <li className="nav-item" key={item.Id}>
+                                        <div className="img-fluid">
+                                            <img src={`http://localhost:5000/${item.Image}`} />
+                                            <span className="badge">{item.Quantity}</span>
+                                        </div>
+                                        <div className="content">
+                                            <p className="name">{item.Name}</p>
+                                            <p className="size-color">{item.Color} / {item.Size.toUpperCase()}</p>
+                                        </div>
+                                        <div className="price text-end">{(item.Price * (100 - item.Percent) / 100).toLocaleString()}đ</div>
+                                    </li>
+                                ))}
                             </ul>
                             <div className="input-group my-4">
                                 <input type="text" className="form-control" placeholder="Nhập mã khuyến mãi" />
@@ -324,20 +331,20 @@ const PaymentPage = () => {
                             </div>
                             <ul className="nav flex-column block-total" style={{ width: '100%', color: '#110a0a' }}>
                                 <li className="nav-item">
-                                    <div>Tổng phụ · 2 mặt hàng</div>
-                                    <div>3.495.000đ</div>
+                                    <div>Tổng phụ · {Cart.length} mặt hàng</div>
+                                    <div>{total.toLocaleString()}đ</div>
                                 </li>
                                 <li className="nav-item">
                                     <div>Phí vận chuyển
                                         <i className="far fa-question-circle ms-1" style={{ fontSize: '13px' }}></i>
                                     </div>
-                                    <h6 className="m-0">MIỄN PHÍ</h6>
+                                    <h6 className="m-0" style={{ fontSize: '15px' }}>MIỄN PHÍ</h6>
                                 </li>
                                 <li className="nav-item">
                                     <div className="text-primary" style={{ fontSize: '22px', fontWeight: '600' }}>Tổng</div>
                                     <div>
                                         <span style={{ color: '#110a0a8f', fontSize: '13px' }}>VND</span>
-                                        <span className="total ms-2" style={{ fontSize: '20px', fontWeight: '600' }}>3.495.000đ</span>
+                                        <span className="total ms-2" style={{ fontSize: '20px', fontWeight: '600' }}>{total.toLocaleString()}đ</span>
                                     </div>
                                 </li>
                             </ul>

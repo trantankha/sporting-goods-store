@@ -7,9 +7,9 @@
 
 .col-md-8 .block-main .card-body .card-item .text-item .trademark {
     margin: 0px 0px 5px;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 500;
-    color: #12283e;
+    color: #969595;
 }
 
 .col-md-8 .block-main .card-body .card-item .text-item .nav-link {
@@ -41,11 +41,21 @@
 .col-md-8 .block-main .card-body .card-item .price-item .price-before {
     text-decoration: line-through;
     color: #969595;
+    text-align: end;
 }
 
 .col-md-8 .block-main .card-body .card-item .total-item p {
     font-size: 17px;
     color: #bc0000;
+}
+
+.col-md-8 .block-main .card-body .card-item .total-item button {
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #ffffff;
+    text-decoration: underline;
 }
 
 .col-md-4 .card .card-body .nav .nav-item {
@@ -80,5 +90,9 @@
 
 .block-title .nav-link span:hover {
     cursor: pointer;
+    color: #77e51f;
+}
+
+.col-md-8 .block-main .card-body .card-item .text-item a:hover {
     color: #77e51f;
 }
